@@ -28,7 +28,7 @@ def render_top_logo():
         img_b64 = image_to_base64(logo_path)
         st.markdown(
             f"""
-            <div style='display:flex; justify-content:center; margin-top: 6px; margin-bottom: 10px;'>
+            <div style='display:flex; justify-content:center; margin-top: 8px; margin-bottom: 10px;'>
                 <img src="data:image/png;base64,{img_b64}" width="155px"/>
             </div>
             """,
@@ -50,7 +50,7 @@ def render_comfama_logo():
     )
     st.markdown(
         f"""
-        <div style='display:flex; justify-content:center; margin-bottom: 30px;'>
+        <div style='display:flex; justify-content:center; margin-bottom: 28px;'>
             <img src="{comfama_logo_url}" width="235px"/>
         </div>
         """,
@@ -60,11 +60,12 @@ def render_comfama_logo():
 def get_profile_analysis(profile):
     analyses = {
         "@tamtenenbaum": {
+            "name": "Tamara Tenenbaum",
             "level": "Amarillo rojizo",
             "color": "#D96C1A",
+            "risk_score": 74,
+            "tag": "Mayor sensibilidad ideológica",
             "content": """
-**Tamara Tenenbaum**
-
 Tenenbaum tiene una voz muy potente, contemporánea y atractiva para públicos urbanos, culturales y progresistas. Sus temas recurrentes incluyen feminismo, amor, deseo, autonomía, vínculos, familia y vida intelectual; ella misma explica el feminismo como una herramienta para pensar la relación entre lo público y lo privado.
 
 **Riesgo principal para Comfama:** no es de reputación personal deteriorada, sino de encuadre ideológico. Para públicos conservadores o ya predispuestos a leer a Comfama como actor cultural “sesgado”, Tenenbaum es la que con más facilidad puede ser convertida en símbolo de agenda de género, sexualidad o élite intelectual. Ese riesgo aumenta precisamente porque tiene una voz clara, visible y reconocible.
@@ -78,11 +79,12 @@ Tenenbaum tiene una voz muy potente, contemporánea y atractiva para públicos u
 """
         },
         "@alexkohan": {
+            "name": "Alexandra Kohan",
             "level": "Amarillo",
             "color": "#D4B000",
+            "risk_score": 58,
+            "tag": "Mejor balance reputacional",
             "content": """
-**Alexandra Kohan**
-
 Kohan ocupa un lugar interesante porque combina densidad intelectual con una promesa más universal: entender el amor, el cuerpo, el humor, la incertidumbre, la exigencia y el malestar contemporáneo desde el psicoanálisis, la literatura y la filosofía. Su propia bio habla de “entender lo que no se deja etiquetar”, y en entrevistas recientes ha trabajado la relación entre humor, ambigüedad, deshumanización y literalidad.
 
 **Riesgo principal para Comfama:** menor que Tamara en clave ideológica directa, pero con un posible problema de sofisticación conceptual. Puede ser muy potente para liderazgo, salud mental, cultura y conversaciones sobre cuidado, pero también puede ser malinterpretada si se edita mal una frase, si se saca de contexto o si se promociona desde titulares demasiado abstractos.
@@ -94,11 +96,12 @@ Kohan ocupa un lugar interesante porque combina densidad intelectual con una pro
 """
         },
         "@julian.fuks": {
+            "name": "Julián Fuks",
             "level": "Amarillo",
             "color": "#D4B000",
+            "risk_score": 62,
+            "tag": "Fuerte legitimidad cultural",
             "content": """
-**Julián Fuks**
-
 Fuks proyecta una autoridad cultural seria, sobria y de alta legitimidad literaria. Su universo gira alrededor de memoria, exilio, dictadura, identidad y autoficción. Eso lo vuelve intelectualmente consistente y reputacionalmente digno, pero no necesariamente masivo ni fácil de traducir a utilidad o cercanía para audiencias amplias.
 
 **Riesgo principal para Comfama:** puede reforzar una percepción de contenido cultural “alto”, serio y valioso, pero también más distante de las brechas de empatía y utilidad si no se aterriza bien. Su riesgo no está en el escándalo, sino en que el evento se sienta demasiado intelectual o poco conectado con la vida cotidiana del afiliado medio. Eso podría dejar neutra la conversación en presencia y empatía, en vez de mejorarla.
@@ -114,7 +117,36 @@ Fuks proyecta una autoridad cultural seria, sobria y de alta legitimidad literar
     }
     return analyses.get(profile)
 
-def render_traffic_light(level, color):
+def render_metric_cards(profile_data):
+    score = profile_data["risk_score"]
+    level = profile_data["level"]
+    tag = profile_data["tag"]
+
+    st.markdown(
+        f"""
+        <div class="dashboard-grid">
+            <div class="metric-card">
+                <div class="metric-label">Perfil analizado</div>
+                <div class="metric-value">{profile_data["name"]}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Nivel de alerta</div>
+                <div class="metric-value">{level}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Índice reputacional</div>
+                <div class="metric-value">{score}/100</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Lectura principal</div>
+                <div class="metric-value metric-small">{tag}</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+def render_traffic_light(level):
     green_active = "#2A8F5B" if level == "Verde" else "rgba(255,255,255,0.15)"
     yellow_active = "#D4B000" if level == "Amarillo" else "rgba(255,255,255,0.15)"
     orange_active = "#D96C1A" if level == "Amarillo rojizo" else "rgba(255,255,255,0.15)"
@@ -122,28 +154,14 @@ def render_traffic_light(level, color):
 
     st.markdown(
         f"""
-        <div style="
-            display:flex;
-            justify-content:center;
-            margin-bottom: 18px;
-            margin-top: 6px;
-        ">
-            <div style="
-                background: rgba(255,255,255,0.05);
-                border: 1px solid rgba(255,255,255,0.10);
-                border-radius: 22px;
-                padding: 18px 22px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.20);
-                min-width: 220px;
-            ">
-                <div style="text-align:center; color:white; font-size:14px; font-weight:700; letter-spacing:1px; margin-bottom:14px;">
-                    SEMÁFORO
-                </div>
-                <div style="display:flex; justify-content:center; gap:14px;">
-                    <div style="width:24px; height:24px; border-radius:50%; background:{green_active}; box-shadow:0 0 14px {green_active};"></div>
-                    <div style="width:24px; height:24px; border-radius:50%; background:{yellow_active}; box-shadow:0 0 14px {yellow_active};"></div>
-                    <div style="width:24px; height:24px; border-radius:50%; background:{orange_active}; box-shadow:0 0 14px {orange_active};"></div>
-                    <div style="width:24px; height:24px; border-radius:50%; background:{red_active}; box-shadow:0 0 14px {red_active};"></div>
+        <div class="semaforo-wrapper">
+            <div class="semaforo-card">
+                <div class="semaforo-title">SEMÁFORO</div>
+                <div class="semaforo-lights">
+                    <div class="light" style="background:{green_active}; box-shadow:0 0 16px {green_active};"></div>
+                    <div class="light" style="background:{yellow_active}; box-shadow:0 0 16px {yellow_active};"></div>
+                    <div class="light" style="background:{orange_active}; box-shadow:0 0 16px {orange_active};"></div>
+                    <div class="light" style="background:{red_active}; box-shadow:0 0 16px {red_active};"></div>
                 </div>
             </div>
         </div>
@@ -151,95 +169,85 @@ def render_traffic_light(level, color):
         unsafe_allow_html=True
     )
 
-def render_result_card(profile_data):
-    render_traffic_light(profile_data["level"], profile_data["color"])
+def render_analysis_card(profile_data):
+    render_metric_cards(profile_data)
+    render_traffic_light(profile_data["level"])
 
     st.markdown(
-        """
-        <div style="
-            background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 22px;
-            padding: 28px;
-            margin-top: 8px;
-            margin-bottom: 28px;
-            box-shadow: 0 14px 35px rgba(0,0,0,0.22);
-            backdrop-filter: blur(8px);
-        ">
+        f"""
+        <div class="analysis-card">
+            <div class="analysis-header">
+                <div class="analysis-profile">{profile_data["name"]}</div>
+                <div class="analysis-badge" style="background:{profile_data["color"]};">
+                    {profile_data["level"]}
+                </div>
+            </div>
         </div>
         """,
         unsafe_allow_html=True
     )
+
     st.markdown(profile_data["content"])
 
 def render_ranking():
-    st.markdown(
-        """
-## Ranking de conveniencia reputacional para Comfama
-"""
-    )
+    st.markdown("<h2 style='text-align:center; margin-bottom: 18px;'>Ranking de conveniencia reputacional para Comfama</h2>", unsafe_allow_html=True)
 
     st.markdown(
         """
-<div style="
-    background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 22px;
-    padding: 24px;
-    box-shadow: 0 14px 35px rgba(0,0,0,0.18);
-">
-    <div style="margin-bottom: 18px;">
-        <div style="font-size: 18px; font-weight: 800; color: white;">1. Alexandra Kohan</div>
-        <div style="color: rgba(255,255,255,0.88); margin-top: 6px;">
-            La pondría primero porque ofrece valor cultural e intelectual, pero con temas más fácilmente traducibles a bienestar, salud mental, vínculos y cuidado, que son marcos más compatibles con Comfama.
+        <div class="ranking-grid">
+            <div class="ranking-card first">
+                <div class="ranking-number">1</div>
+                <div class="ranking-name">Alexandra Kohan</div>
+                <div class="ranking-text">
+                    La pondría primero porque ofrece valor cultural e intelectual, pero con temas más fácilmente traducibles a bienestar, salud mental, vínculos y cuidado, que son marcos más compatibles con Comfama.
+                </div>
+            </div>
+
+            <div class="ranking-card second">
+                <div class="ranking-number">2</div>
+                <div class="ranking-name">Julián Fuks</div>
+                <div class="ranking-text">
+                    Muy sólido y respetable, pero más útil para agenda cultural o de pensamiento que para corregir brechas de empatía y utilidad en gran escala.
+                </div>
+            </div>
+
+            <div class="ranking-card third">
+                <div class="ranking-number">3</div>
+                <div class="ranking-name">Tamara Tenenbaum</div>
+                <div class="ranking-text">
+                    Muy valiosa editorialmente, pero la de mayor probabilidad de activar lectura ideológica o polarización externa en el contexto reputacional actual de Comfama.
+                </div>
+            </div>
         </div>
-    </div>
-    <div style="margin-bottom: 18px;">
-        <div style="font-size: 18px; font-weight: 800; color: white;">2. Julián Fuks</div>
-        <div style="color: rgba(255,255,255,0.88); margin-top: 6px;">
-            Muy sólido y respetable, pero más útil para agenda cultural o de pensamiento que para corregir brechas de empatía y utilidad en gran escala.
-        </div>
-    </div>
-    <div>
-        <div style="font-size: 18px; font-weight: 800; color: white;">3. Tamara Tenenbaum</div>
-        <div style="color: rgba(255,255,255,0.88); margin-top: 6px;">
-            Muy valiosa editorialmente, pero la de mayor probabilidad de activar lectura ideológica o polarización externa en el contexto reputacional actual de Comfama.
-        </div>
-    </div>
-</div>
         """,
         unsafe_allow_html=True
     )
 
 def render_avatar_section():
     st.markdown(
-        "<h2 style='text-align:center; margin-bottom: 18px;'>Asistente de riesgo reputacional</h2>",
+        "<h2 style='text-align:center; margin-bottom: 8px;'>Asistente de riesgo reputacional</h2>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        "<p style='text-align:center; color: rgba(255,255,255,0.78); margin-top:0; margin-bottom:20px;'>Puedes iniciar una conversación para profundizar en los perfiles que estás analizando</p>",
         unsafe_allow_html=True
     )
     st.markdown(
         """
-<div style="
-    margin-top: 10px;
-    border-radius: 22px;
-    overflow: hidden;
-    background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 14px;
-    box-shadow: 0 14px 35px rgba(0,0,0,0.18);
-">
-    <iframe
-        src="https://embed.liveavatar.com/v1/61048f13-9b1a-4027-baf4-d229ce294a7c"
-        allow="microphone"
-        title="LiveAvatar Embed"
-        style="aspect-ratio: 16/9; width: 100%; border: 0; border-radius: 14px;">
-    </iframe>
-</div>
-""",
+        <div class="avatar-card">
+            <iframe
+                src="https://embed.liveavatar.com/v1/61048f13-9b1a-4027-baf4-d229ce294a7c"
+                allow="microphone"
+                title="LiveAvatar Embed"
+                style="aspect-ratio: 16/9; width: 100%; border: 0; border-radius: 16px;">
+            </iframe>
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
 # =========================
-# ESTILOS VISUALES
+# FONDO
 # =========================
 background_css = ""
 try:
@@ -257,10 +265,13 @@ try:
 except Exception:
     background_css = """
     .stApp {
-        background: linear-gradient(180deg, #150120 0%, #22042E 35%, #240531 100%);
+        background: linear-gradient(180deg, #14021d 0%, #22042E 35%, #240531 100%);
     }
     """
 
+# =========================
+# ESTILOS
+# =========================
 st.markdown(
     f"""
     <style>
@@ -277,8 +288,8 @@ st.markdown(
         background-repeat: no-repeat !important;
         background-size: 100% 100% !important;
         border-radius: 28px !important;
-        padding: 42px 42px 54px 42px !important;
-        max-width: 920px !important;
+        padding: 40px 42px 56px 42px !important;
+        max-width: 980px !important;
         margin: 1.6rem auto !important;
     }}
 
@@ -286,18 +297,53 @@ st.markdown(
         color: white !important;
     }}
 
+    .hero-card {{
+        background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 24px;
+        padding: 26px;
+        margin-bottom: 26px;
+        box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+        backdrop-filter: blur(10px);
+    }}
+
+    .hero-subtitle {{
+        text-align:center;
+        color: rgba(255,255,255,0.76);
+        margin-top: 8px;
+        line-height: 1.7;
+        font-size: 15px;
+    }}
+
+    .criteria-grid {{
+        display:grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 18px;
+    }}
+
+    .criteria-chip {{
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 999px;
+        padding: 10px 12px;
+        text-align:center;
+        font-size: 13px;
+        font-weight: 600;
+    }}
+
     .stSelectbox label {{
         color: white !important;
         font-weight: 700 !important;
         font-size: 1rem !important;
-        margin-bottom: 6px !important;
+        margin-bottom: 8px !important;
     }}
 
     div[data-baseweb="select"] > div {{
         background: rgba(255,255,255,0.08) !important;
         border: 1px solid rgba(255,255,255,0.15) !important;
         border-radius: 16px !important;
-        min-height: 52px !important;
+        min-height: 54px !important;
         color: white !important;
         box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }}
@@ -305,7 +351,8 @@ st.markdown(
     div.stButton {{
         display: flex !important;
         justify-content: center !important;
-        margin-top: 8px !important;
+        margin-top: 14px !important;
+        margin-bottom: 6px !important;
     }}
 
     div.stButton > button {{
@@ -313,46 +360,217 @@ st.markdown(
         color: #ffffff !important;
         font-weight: 800 !important;
         font-size: 16px !important;
-        letter-spacing: 0.2px !important;
-        padding: 12px 34px !important;
+        letter-spacing: 0.3px !important;
+        padding: 13px 36px !important;
         border-radius: 999px !important;
         border: none !important;
+        min-width: 190px !important;
         width: auto !important;
-        min-width: 180px !important;
-        box-shadow: 0 12px 26px rgba(255,122,0,0.28) !important;
+        box-shadow: 0 14px 30px rgba(255,122,0,0.28) !important;
         transition: all 0.2s ease-in-out !important;
     }}
 
     div.stButton > button:hover {{
         background: linear-gradient(135deg, #FF9A1A 0%, #FF7300 100%) !important;
-        color: #ffffff !important;
         transform: translateY(-1px);
+        color: #ffffff !important;
     }}
 
-    .premium-box {{
-        background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 22px;
-        padding: 26px;
-        margin-bottom: 26px;
-        box-shadow: 0 14px 35px rgba(0,0,0,0.18);
-        backdrop-filter: blur(8px);
+    .helper-text {{
+        text-align:center;
+        color: rgba(255,255,255,0.72);
+        font-size: 13px;
+        margin-top: 2px;
+        margin-bottom: 12px;
     }}
 
     .section-divider {{
         height: 1px;
         background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 100%);
-        margin-top: 26px;
-        margin-bottom: 26px;
+        margin-top: 28px;
+        margin-bottom: 28px;
     }}
 
-    .mini-caption {{
-        text-align: center;
-        color: rgba(255,255,255,0.72);
-        font-size: 13px;
-        margin-top: -2px;
+    .dashboard-grid {{
+        display:grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-bottom: 18px;
+    }}
+
+    .metric-card {{
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 10px 26px rgba(0,0,0,0.14);
+    }}
+
+    .metric-label {{
+        font-size: 12px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.65) !important;
+        margin-bottom: 8px;
+        font-weight: 700;
+    }}
+
+    .metric-value {{
+        font-size: 20px;
+        font-weight: 800;
+        color: white;
+        line-height: 1.3;
+    }}
+
+    .metric-small {{
+        font-size: 17px;
+    }}
+
+    .semaforo-wrapper {{
+        display:flex;
+        justify-content:center;
+        margin-top: 8px;
         margin-bottom: 20px;
-        letter-spacing: 0.3px;
+    }}
+
+    .semaforo-card {{
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 22px;
+        padding: 18px 24px;
+        min-width: 240px;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.16);
+    }}
+
+    .semaforo-title {{
+        text-align:center;
+        font-size:13px;
+        letter-spacing:1px;
+        font-weight:800;
+        margin-bottom:14px;
+        color: rgba(255,255,255,0.8);
+    }}
+
+    .semaforo-lights {{
+        display:flex;
+        justify-content:center;
+        gap:14px;
+    }}
+
+    .light {{
+        width:26px;
+        height:26px;
+        border-radius:50%;
+    }}
+
+    .analysis-card {{
+        background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 24px;
+        padding: 24px;
+        margin-bottom: 20px;
+        box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+    }}
+
+    .analysis-header {{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }}
+
+    .analysis-profile {{
+        font-size: 26px;
+        font-weight: 800;
+        color: white;
+    }}
+
+    .analysis-badge {{
+        color: white;
+        font-size: 13px;
+        font-weight: 800;
+        padding: 9px 14px;
+        border-radius: 999px;
+    }}
+
+    .ranking-grid {{
+        display:grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 10px;
+    }}
+
+    .ranking-card {{
+        position: relative;
+        background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 22px;
+        padding: 22px 22px 22px 76px;
+        box-shadow: 0 14px 34px rgba(0,0,0,0.18);
+    }}
+
+    .ranking-number {{
+        position:absolute;
+        left: 20px;
+        top: 22px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-weight: 800;
+        font-size: 18px;
+        color: white;
+    }}
+
+    .first .ranking-number {{
+        background: linear-gradient(135deg, #2A8F5B 0%, #3DBE7A 100%);
+    }}
+
+    .second .ranking-number {{
+        background: linear-gradient(135deg, #D4B000 0%, #E8C92C 100%);
+    }}
+
+    .third .ranking-number {{
+        background: linear-gradient(135deg, #D96C1A 0%, #F0892E 100%);
+    }}
+
+    .ranking-name {{
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }}
+
+    .ranking-text {{
+        color: rgba(255,255,255,0.85) !important;
+        line-height: 1.7;
+        font-size: 14px;
+    }}
+
+    .avatar-card {{
+        margin-top: 12px;
+        border-radius: 24px;
+        overflow: hidden;
+        background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
+        border: 1px solid rgba(255,255,255,0.12);
+        padding: 14px;
+        box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+    }}
+
+    @media (max-width: 768px) {{
+        .criteria-grid {{
+            grid-template-columns: repeat(2, 1fr);
+        }}
+
+        .dashboard-grid {{
+            grid-template-columns: 1fr;
+        }}
+
+        .analysis-profile {{
+            font-size: 22px;
+        }}
     }}
     </style>
     """,
@@ -381,22 +599,21 @@ st.markdown(
 
 st.markdown(
     """
-    <div class="premium-box">
+    <div class="hero-card">
         <h3 style="margin-top:0; text-align:center;">Objetivo</h3>
-        <p style="margin-bottom: 10px; text-align:center;">
+        <div class="hero-subtitle">
             Analizar la conveniencia de los perfiles sociales para la estrategia reputacional de Comfama,
-            con base en los siguientes criterios:
-        </p>
-        <div style="display:flex; justify-content:center;">
-            <ul style="margin-top: 6px; line-height: 1.9;">
-                <li>Tono</li>
-                <li>Estilo</li>
-                <li>Discurso</li>
-                <li>Audiencia</li>
-                <li>Contenido</li>
-                <li>Temáticas abordadas</li>
-                <li>Posturas</li>
-            </ul>
+            con base en variables narrativas, simbólicas y de conexión con la audiencia.
+        </div>
+        <div class="criteria-grid">
+            <div class="criteria-chip">Tono</div>
+            <div class="criteria-chip">Estilo</div>
+            <div class="criteria-chip">Discurso</div>
+            <div class="criteria-chip">Audiencia</div>
+            <div class="criteria-chip">Contenido</div>
+            <div class="criteria-chip">Temáticas abordadas</div>
+            <div class="criteria-chip">Posturas</div>
+            <div class="criteria-chip">Riesgo reputacional</div>
         </div>
     </div>
     """,
@@ -404,18 +621,21 @@ st.markdown(
 )
 
 # =========================
-# FORMULARIO PRINCIPAL
+# FORMULARIO
 # =========================
 perfil = st.selectbox(
     "Selecciona el perfil a analizar:",
     ["@tamtenenbaum", "@alexkohan", "@julian.fuks"]
 )
 
-st.markdown("<div class='mini-caption'>Selecciona un perfil y ejecuta el análisis reputacional.</div>", unsafe_allow_html=True)
+st.markdown(
+    "<div class='helper-text'>Selecciona un perfil y ejecuta el análisis para obtener una lectura reputacional simulada.</div>",
+    unsafe_allow_html=True
+)
 
 if st.button("Analizar"):
-    with st.spinner("Analizando tono, discurso, audiencias y riesgos reputacionales..."):
-        time.sleep(2.8)
+    with st.spinner("Construyendo lectura reputacional del perfil seleccionado..."):
+        time.sleep(3)
     st.session_state.analizado = True
     st.session_state.perfil_seleccionado = perfil
 
@@ -424,9 +644,9 @@ if st.button("Analizar"):
 # =========================
 if st.session_state.analizado and st.session_state.perfil_seleccionado:
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
-    st.markdown("<h2 style='text-align:center;'>Resultado del análisis</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align:center; margin-bottom: 18px;'>Resultado del análisis</h2>", unsafe_allow_html=True)
     profile_data = get_profile_analysis(st.session_state.perfil_seleccionado)
-    render_result_card(profile_data)
+    render_analysis_card(profile_data)
     render_ranking()
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     render_avatar_section()
