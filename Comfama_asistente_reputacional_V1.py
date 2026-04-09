@@ -603,6 +603,14 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown(
+    "<div class='helper-text'>Ejemplo de preguntas que puedes hacer:</div>",
+    "<div class='helper-text'>¿Cuál es el perfil más conveniente para Comfama?</div>",
+    "<div class='helper-text'>¿Qué tipo de perfiles funcionan mejor en campañas masivas?</div>",
+    "<div class='helper-text'>¿Qué perfiles funcionan mejor en agenda cultural?</div>",
+    unsafe_allow_html=True
+)
+
 col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
