@@ -194,11 +194,6 @@ def render_avatar_section():
         "<h2 style='text-align:center; margin-bottom: 8px;'>Asistente de riesgo reputacional</h2>",
         unsafe_allow_html=True
     )
-    def render_avatar_section():
-    st.markdown(
-        "<h2 style='text-align:center; margin-bottom: 8px;'>Asistente de riesgo reputacional</h2>",
-        unsafe_allow_html=True
-    )
     st.markdown(
         """
         <div style='text-align:center; color: rgba(255,255,255,0.78); margin-top:0; margin-bottom:20px; line-height:1.7;'>
