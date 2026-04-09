@@ -198,18 +198,6 @@ def render_avatar_section():
         """
         <div style='text-align:center; color: rgba(255,255,255,0.78); margin-top:0; margin-bottom:20px; line-height:1.7;'>
             Puedes iniciar una conversación para profundizar en los perfiles que estás analizando.
-            <br><br>
-
-            <strong>Ejemplo de preguntas que puedes hacer:</strong>
-            <br><br>
-
-            <div style='display:inline-block; text-align:left;'>
-                <ul style='margin:0; padding-left:18px;'>
-                    <li>¿Cuál es el perfil más conveniente para Comfama?</li>
-                    <li>¿Qué tipo de perfiles funcionan mejor en campañas masivas?</li>
-                    <li>¿Qué tipo de perfiles funcionan mejor en agenda cultural?</li>
-                </ul>
-            </div>
         </div>
         """,
         unsafe_allow_html=True
@@ -575,7 +563,7 @@ render_top_logo()
 render_comfama_logo()
 
 st.markdown(
-    "<h1 style='text-align:center; margin-bottom: 10px;'>Simulador de riesgo reputacional</h1>",
+    "<h1 style='text-align:center; margin-bottom: 10px;'>Scoring IA de reputación</h1>",
     unsafe_allow_html=True
 )
 
