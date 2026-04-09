@@ -195,7 +195,11 @@ def render_avatar_section():
         unsafe_allow_html=True
     )
     st.markdown(
-        "<p style='text-align:center; color: rgba(255,255,255,0.78); margin-top:0; margin-bottom:20px;'>Puedes iniciar una conversación para profundizar en los perfiles que estás analizando</p>",
+        "<p style='text-align:center; color: rgba(255,255,255,0.78); margin-top:0; margin-bottom:20px;'>Puedes iniciar una conversación para profundizar en los perfiles que estás analizando"
+        "Ejemplo de preguntas que puedes hacer:"
+        "- ¿Cuál es el perfil más conveniente para Comfama?"
+        "- ¿Qué tipo de perfiles funcionan mejor en campañas masivas?"
+        "- ¿Qué tipo de perfiles funcionan mejor en agenda cultural?</p>",
         unsafe_allow_html=True
     )
     st.markdown(
