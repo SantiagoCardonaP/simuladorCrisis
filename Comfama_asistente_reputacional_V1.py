@@ -189,31 +189,6 @@ def render_analysis_card(profile_data):
 
     st.markdown(profile_data["content"])
 
-def render_ranking():
-    st.markdown("## Ranking de conveniencia reputacional para Comfama")
-
-    with st.container():
-        st.markdown(
-            """
-**1. Alexandra Kohan**  
-La pondría primero porque ofrece valor cultural e intelectual, pero con temas más fácilmente traducibles a bienestar, salud mental, vínculos y cuidado, que son marcos más compatibles con Comfama.
-"""
-        )
-
-        st.markdown(
-            """
-**2. Julián Fuks**  
-Muy sólido y respetable, pero más útil para agenda cultural o de pensamiento que para corregir brechas de empatía y utilidad en gran escala.
-"""
-        )
-
-        st.markdown(
-            """
-**3. Tamara Tenenbaum**  
-Muy valiosa editorialmente, pero la de mayor probabilidad de activar lectura ideológica o polarización externa en el contexto reputacional actual de Comfama.
-"""
-        )
-
 def render_avatar_section():
     st.markdown(
         "<h2 style='text-align:center; margin-bottom: 8px;'>Asistente de riesgo reputacional</h2>",
@@ -641,7 +616,6 @@ if st.session_state.analizado and st.session_state.perfil_seleccionado:
     st.markdown("<h2 style='text-align:center; margin-bottom: 18px;'>Resultado del análisis</h2>", unsafe_allow_html=True)
     profile_data = get_profile_analysis(st.session_state.perfil_seleccionado)
     render_analysis_card(profile_data)
-    render_ranking()
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     render_avatar_section()
 else:
