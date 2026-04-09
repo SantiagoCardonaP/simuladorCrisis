@@ -196,19 +196,15 @@ def render_avatar_section():
     )
     st.markdown(
     """
-    <div style='text-align:center; color: rgba(255,255,255,0.78); margin-bottom:20px; line-height:1.7;'>
-
+    <p style='text-align:center; color: rgba(255,255,255,0.78); margin-top:0; margin-bottom:20px;'>
         Puedes iniciar una conversación para profundizar en los perfiles que estás analizando.<br><br>
 
-        <span style='font-weight:700;'>Ejemplo de preguntas que puedes hacer:</span><br><br>
+        <strong>Ejemplo de preguntas que puedes hacer:</strong><br><br>
 
-        <div style='text-align:left; display:inline-block;'>
-            • ¿Cuál es el perfil más conveniente para Comfama?<br>
-            • ¿Qué tipo de perfiles funcionan mejor en campañas masivas?<br>
-            • ¿Qué tipo de perfiles funcionan mejor en agenda cultural?
-        </div>
-
-    </div>
+        • ¿Cuál es el perfil más conveniente para Comfama?<br>
+        • ¿Qué tipo de perfiles funcionan mejor en campañas masivas?<br>
+        • ¿Qué tipo de perfiles funcionan mejor en agenda cultural?
+    </p>
     """,
     unsafe_allow_html=True
     )
