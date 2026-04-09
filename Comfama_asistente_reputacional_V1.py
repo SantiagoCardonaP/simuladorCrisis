@@ -194,10 +194,18 @@ def render_avatar_section():
         "<h2 style='text-align:center; margin-bottom: 8px;'>Asistente de riesgo reputacional</h2>",
         unsafe_allow_html=True
     )
-    st.markdown(
+    import streamlit.components.v1 as components
+
+    components.html(
     """
-    <div style='text-align:center; color: rgba(255,255,255,0.78); margin-top:0; margin-bottom:20px; line-height:1.7;'>
-        
+    <div style='
+        text-align:center;
+        color: rgba(255,255,255,0.85);
+        margin-bottom:20px;
+        line-height:1.7;
+        font-family: Montserrat, sans-serif;
+    '>
+
         Puedes iniciar una conversación para profundizar en los perfiles que estás analizando.
         <br><br>
 
@@ -214,7 +222,7 @@ def render_avatar_section():
 
     </div>
     """,
-    unsafe_allow_html=True
+    height=220,
     )
     st.markdown(
         """
