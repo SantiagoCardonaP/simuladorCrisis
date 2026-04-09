@@ -627,7 +627,7 @@ st.markdown(
 col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
-    if st.button("Analizar"):
+    if st.button("Analizar", use_container_width=True):
         with st.spinner("Construyendo lectura reputacional del perfil seleccionado..."):
             time.sleep(3)
         st.session_state.analizado = True
