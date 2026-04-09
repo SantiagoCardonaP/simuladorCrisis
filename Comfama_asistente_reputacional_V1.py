@@ -190,7 +190,10 @@ def render_analysis_card(profile_data):
     st.markdown(profile_data["content"])
 
 def render_ranking():
-    st.markdown("<h2 style='text-align:center; margin-bottom: 18px;'>Ranking de conveniencia reputacional para Comfama</h2>", unsafe_allow_html=True)
+    st.markdown(
+        "<h2 style='text-align:center; margin-bottom: 18px;'>Ranking de conveniencia reputacional para Comfama</h2>",
+        unsafe_allow_html=True
+    )
 
     st.markdown(
         """
