@@ -227,7 +227,7 @@ def render_avatar_section():
         """
         <div class="avatar-card">
             <iframe
-                src="https://embed.liveavatar.com/v1/61048f13-9b1a-4027-baf4-d229ce294a7c"
+                src="https://embed.liveavatar.com/v1/b45d4e30-e753-4866-acbd-30d028ef702b"
                 allow="microphone"
                 title="LiveAvatar Embed"
                 style="aspect-ratio: 16/9; width: 100%; border: 0; border-radius: 16px;">
@@ -647,3 +647,5 @@ if st.session_state.analizado and st.session_state.perfil_seleccionado:
 else:
     st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
     render_avatar_section()
+
+    
