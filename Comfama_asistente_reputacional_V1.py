@@ -227,7 +227,7 @@ def render_avatar_section():
         """
         <div class="avatar-card">
             <iframe
-                src="https://embed.liveavatar.com/v1/b45d4e30-e753-4866-acbd-30d028ef702b"
+                src="https://embed.liveavatar.com/v1/06a10fd8-6def-4ad8-8887-f2a601b981fb"
                 allow="microphone"
                 title="LiveAvatar Embed"
                 style="aspect-ratio: 16/9; width: 100%; border: 0; border-radius: 16px;">
