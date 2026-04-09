@@ -190,41 +190,29 @@ def render_analysis_card(profile_data):
     st.markdown(profile_data["content"])
 
 def render_ranking():
-    st.markdown(
-        "<h2 style='text-align:center; margin-bottom: 18px;'>Ranking de conveniencia reputacional para Comfama</h2>",
-        unsafe_allow_html=True
-    )
+    st.markdown("## Ranking de conveniencia reputacional para Comfama")
 
-    st.markdown(
-        """
-        <div class="ranking-grid">
-            <div class="ranking-card first">
-                <div class="ranking-number">1</div>
-                <div class="ranking-name">Alexandra Kohan</div>
-                <div class="ranking-text">
-                    La pondría primero porque ofrece valor cultural e intelectual, pero con temas más fácilmente traducibles a bienestar, salud mental, vínculos y cuidado, que son marcos más compatibles con Comfama.
-                </div>
-            </div>
+    with st.container():
+        st.markdown(
+            """
+**1. Alexandra Kohan**  
+La pondría primero porque ofrece valor cultural e intelectual, pero con temas más fácilmente traducibles a bienestar, salud mental, vínculos y cuidado, que son marcos más compatibles con Comfama.
+"""
+        )
 
-            <div class="ranking-card second">
-                <div class="ranking-number">2</div>
-                <div class="ranking-name">Julián Fuks</div>
-                <div class="ranking-text">
-                    Muy sólido y respetable, pero más útil para agenda cultural o de pensamiento que para corregir brechas de empatía y utilidad en gran escala.
-                </div>
-            </div>
+        st.markdown(
+            """
+**2. Julián Fuks**  
+Muy sólido y respetable, pero más útil para agenda cultural o de pensamiento que para corregir brechas de empatía y utilidad en gran escala.
+"""
+        )
 
-            <div class="ranking-card third">
-                <div class="ranking-number">3</div>
-                <div class="ranking-name">Tamara Tenenbaum</div>
-                <div class="ranking-text">
-                    Muy valiosa editorialmente, pero la de mayor probabilidad de activar lectura ideológica o polarización externa en el contexto reputacional actual de Comfama.
-                </div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+        st.markdown(
+            """
+**3. Tamara Tenenbaum**  
+Muy valiosa editorialmente, pero la de mayor probabilidad de activar lectura ideológica o polarización externa en el contexto reputacional actual de Comfama.
+"""
+        )
 
 def render_avatar_section():
     st.markdown(
