@@ -624,11 +624,14 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-if st.button("Analizar"):
-    with st.spinner("Construyendo lectura reputacional del perfil seleccionado..."):
-        time.sleep(3)
-    st.session_state.analizado = True
-    st.session_state.perfil_seleccionado = perfil
+col1, col2, col3 = st.columns([1, 2, 1])
+
+with col2:
+    if st.button("Analizar"):
+        with st.spinner("Construyendo lectura reputacional del perfil seleccionado..."):
+            time.sleep(3)
+        st.session_state.analizado = True
+        st.session_state.perfil_seleccionado = perfil
 
 # =========================
 # RESULTADO
