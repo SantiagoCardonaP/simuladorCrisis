@@ -194,19 +194,30 @@ def render_avatar_section():
         "<h2 style='text-align:center; margin-bottom: 8px;'>Asistente de riesgo reputacional</h2>",
         unsafe_allow_html=True
     )
+    def render_avatar_section():
     st.markdown(
-    """
-    <p style='text-align:center; color: rgba(255,255,255,0.78); margin-top:0; margin-bottom:20px;'>
-        Puedes iniciar una conversación para profundizar en los perfiles que estás analizando.<br><br>
+        "<h2 style='text-align:center; margin-bottom: 8px;'>Asistente de riesgo reputacional</h2>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        <div style='text-align:center; color: rgba(255,255,255,0.78); margin-top:0; margin-bottom:20px; line-height:1.7;'>
+            Puedes iniciar una conversación para profundizar en los perfiles que estás analizando.
+            <br><br>
 
-        <strong>Ejemplo de preguntas que puedes hacer:</strong><br><br>
+            <strong>Ejemplo de preguntas que puedes hacer:</strong>
+            <br><br>
 
-        • ¿Cuál es el perfil más conveniente para Comfama?<br>
-        • ¿Qué tipo de perfiles funcionan mejor en campañas masivas?<br>
-        • ¿Qué tipo de perfiles funcionan mejor en agenda cultural?
-    </p>
-    """,
-    unsafe_allow_html=True
+            <div style='display:inline-block; text-align:left;'>
+                <ul style='margin:0; padding-left:18px;'>
+                    <li>¿Cuál es el perfil más conveniente para Comfama?</li>
+                    <li>¿Qué tipo de perfiles funcionan mejor en campañas masivas?</li>
+                    <li>¿Qué tipo de perfiles funcionan mejor en agenda cultural?</li>
+                </ul>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
     st.markdown(
         """
